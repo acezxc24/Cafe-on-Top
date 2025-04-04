@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe on Top</title>
+    <style>
+        /* CSS Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #6F4E37; /* Coffee brown */
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #D2B48C; /* Tan color */
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #D2B48C;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            color: white;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #D2B48C;
+            color: #6F4E37;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #D2B48C;
+            color: #6F4E37;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #6F4E37;
+            color: #D2B48C;
+            transform: translateY(-3px);
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+            font-size: 32px;
+            color: #6F4E37;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-info {
+            padding: 20px;
+        }
+
+        .menu-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #6F4E37;
+        }
+
+        .menu-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #6F4E37;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background-color: #af7613a0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #d28a24;
+            color: #6F4E37;
+        }
+
+        .about {
+            background-color: #9e7040a2;
+            color: white;
+            padding: 60px 0;
+            margin: 60px 0;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        footer {
+            background-color: #6F4E37;
+            padding: 40px 0;
+            color: white;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #D2B48C;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #D2B48C;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #D2B48C;
+            color: #D2B48C;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 200;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 30px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6F4E37;
+        }
+
+        .close-modal:hover {
+            color: #D2B48C;
+        }
+
+        .cart-items {
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+            padding: 0 20px;
+        }
+
+        .cart-item-title {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #6F4E37;
+        }
+
+        .cart-item-price {
+            color: #6F4E37;
+            font-weight: bold;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-btn {
+            background-color: #6F4E37;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .remove-item {
+            background-color: transparent;
+            border: none;
+            color: #ff5252;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .cart-total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 20px;
+            color: #6F4E37;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #6F4E37;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #D2B48C;
+            color: #6F4E37;
+        }
+
+        /* Specials Section */
+        .specials {
+            background-color: #D2B48C;
+            padding: 60px 0;
+        }
+
+        .special-items {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+        }
+
+        .special-card {
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            scroll-snap-align: start;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .special-title {
+            color: #a8874a;
+            margin-bottom: 10px;
+        }
+
+        .special-desc {
+            margin-bottom: 15px;
+        }
+
+        .special-price {
+            font-weight: bold;
+            color: #795e4b;
+            font-size: 18px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Cafe <span>on Top</span></a>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#specials">Specials</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Keep calm and makes coffee</h1>
+                <p>Discover our handcrafted coffee blends and artisanal pastries in a cozy atmosphere perfect for relaxation and productivity.</p>
+                <a href="#menu" class="btn">View Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="menu">
+        <h2 class="section-title">Our Menu</h2>
+        <div class="menu" id="menuItems">
+            <!-- Menu items will be added dynamically with JavaScript -->
+        </div>
+    </section>
+
+    <section class="specials" id="specials">
+        <div class="container">
+            <h2 class="section-title">Today's Specials</h2>
+            <div class="special-items">
+                <div class="special-card">
+                    <h3 class="special-title">Caramel Macchiato</h3>
+                    <p class="special-desc">Our signature espresso with steamed milk, vanilla syrup, and caramel drizzle.</p>
+                    <p class="special-price">Pesos: 120</p>
+                    <button class="add-to-cart" data-id="101">Add to Order</button>
+                </div>
+                <div class="special-card">
+                    <h3 class="special-title">Blueberry Scone</h3>
+                    <p class="special-desc">Freshly baked scone with juicy blueberries and a light glaze.</p>
+                    <p class="special-price">Pesos: 120</p>
+                    <button class="add-to-cart" data-id="102">Add to Order</button>
+                </div>
+                <div class="special-card">
+                    <h3 class="special-title">Iced Matcha Latte</h3>
+                    <p class="special-desc">Premium matcha powder whisked with milk and served over ice.</p>
+                    <p class="special-price">Pesos: 170</p>
+                    <button class="add-to-cart" data-id="103">Add to Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Our Story</h2>
+                    <p> Cafe on Top began as a small coffee cart in Sta lucia Pasig City. Our passion for quality coffee and community quickly grew into this cozy neighborhood café.</p>
+                    <p>We source our beans directly from sustainable farms and roast them in-house to bring you the freshest, most flavorful coffee experience.</p>
+                    <a href="#" class="btn" style="margin-top: 20px;">Learn More</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Coffee shop interior">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Location</h3>
+                    <ul>
+                        <li>123 Coffee Shop</li>
+                        <li>Sta lucia, Pasig City</li>
+                        <li>Mon-Fri: 6am-10pm</li>
+                        <li>Sat-Sun: 7am-8pm</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="tel: 09686937624">09686937624</a></li>
+                        <li><a href="Cafe on Top@gmail.com">Cafe on Top.com</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Subscribe</h3>
+                    <p>Get updates on specials and events</p>
+                    <form id="newsletterForm" style="margin-top: 10px;">
+                        <input type="email" placeholder="Your email" style="padding: 8px; width: 100%; margin-bottom: 10px; border-radius: 4px; border: none;">
+                        <button type="submit" class="btn" style="width: 100%; padding: 8px;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Cafe on Top Coffee Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2 style="color: #b2df11e1;">Your Order</h2>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be added dynamically -->
+                <p id="emptyCartMessage">Your cart is empty</p>
+            </div>
+            <div class="cart-total">
+                Total: Pesos<span id="cartTotal">0.00</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Menu Data
+        const menuItems = [
+            {
+                id: 1,
+                title: "Espresso",
+                price: P:90
+                image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "coffee"
+            },
+            {
+                id: 2,
+                title: "Cappuccino",
+                price: P:102
+                image: "https://images.unsplash.com/photo-1534778101976-62847782c213?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "coffee"
+            },
+            {
+                id: 3,
+                title: "Latte",
+                price: P:102
+                image: "https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "coffee"
+            },
+            {
+                id: 4,
+                title: "Cold Brew",
+                price: P:79
+                image: "https://images.unsplash.com/photo-1593246049226-ded77bf90326?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "coffee"
+            },
+            {
+                id: 5,
+                title: "Croissant",
+                price: P:65
+                image: "https://images.unsplash.com/photo-1567945716310-4745d1a2d08a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "food"
+            },
+            {
+                id: 6,
+                title: "Avocado Toast",
+                price: P:50
+                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "food"
+            },
+            {
+                id: 7,
+                title: "Chocolate Chip Cookie",
+                price: P:45
+                image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "food"
+            },
+            {
+                id: 8,
+                title: "Iced Tea",
+                price: P:70
+                image: "https://images.unsplash.com/photo-1560703650-ef3e0f254ae0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "other"
+            }
+        ];
+
+        // Specials Data
+        const specialItems = [
+            {
+                id: 101,
+                title: "Caramel Macchiato",
+                price: 110
+                image: "https://images.unsplash.com/photo-1521012012373-6a85bade18da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                id: 102,
+                title: "Blueberry Scone",
+                price: 110
+                image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                id: 103,
+                title: "Iced Matcha Latte",
+                price: 120
+                image: "https://images.unsplash.com/photo-1534438099497-623c0a4e56b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            }
+        ];
+
+        // Shopping Cart
+        let cart = [];
+
+        // DOM Elements
+        const menuContainer = document.getElementById('menuItems');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartModal = document.getElementById('cartModal');
+        const closeModal = document.getElementById('closeModal');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartTotalElement = document.getElementById('cartTotal');
+        const cartCountElement = document.getElementById('cartCount');
+        const emptyCartMessage = document.getElementById('emptyCartMessage');
+        const newsletterForm = document.getElementById('newsletterForm');
+
+        // Display Menu Items
+        function displayMenu() {
+            menuContainer.innerHTML = '';
+            
+            menuItems.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                menuItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="menu-image">
+                    <div class="menu-info">
+                        <h3 class="menu-title">${item.title}</h3>
+                        <p class="menu-price">$${item.price.toFixed(2)}</p>
+                        <button class="add-to-cart" data-id="${item.id}">Add to Order</button>
+                    </div>
+                `;
+                menuContainer.appendChild(menuItem);
+            });
+            
+            // Add event listeners to "Add to Cart" buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        // Add to Cart
+        function addToCart(e) {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            let item;
+            
+            // Check if it's a regular menu item or special
+            if (itemId < 100) {
+                item = menuItems.find(i => i.id === itemId);
+            } else {
+                item = specialItems.find(i => i.id === itemId);
+            }
+            
+            if (!item) return;
+            
+            // Check if item is already in cart
+            const existingItem = cart.find(i => i.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...item,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showCartNotification(item.title);
+        }
+
+        // Update Cart
+        function updateCart() {
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+            
+            // Update cart modal
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartItemsContainer.innerHTML = '';
+            } else {
+                emptyCartMessage.style.display = 'none';
+                
+                cartItemsContainer.innerHTML = '';
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="₱{item.title}">
+                        <div class="cart-item-info">
+                            <h4 class="cart-item-title">₱{item.title}</h4>
+                            <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        </div>
+                        <button class="remove-item" data-id="{item.id}">Remove</button>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+                
+                // Add event listeners to quantity buttons
+                document.querySelectorAll('.quantity-btn.minus').forEach(button => {
+                    button.addEventListener('click', decreaseQuantity);
+                });
+                
+                document.querySelectorAll('.quantity-btn.plus').forEach(button => {
+                    button.addEventListener('click', increaseQuantity);
+                });
+                
+                // Add event listeners to remove buttons
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', removeItem);
+                });
+            }
+            
+            // Update total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalElement.textContent = total.toFixed(2);
+        }
+
+        // Decrease Quantity
+        function decreaseQuantity(e) {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(i => i.id === itemId);
+            
+            if (item.quantity > 1) {
+                item.quantity -= 1;
+            } else {
+                cart = cart.filter(i => i.id !== itemId);
+            }
+            
+            updateCart();
+        }
+
+        // Increase Quantity
+        function increaseQuantity(e) {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(i => i.id === itemId);
+            item.quantity += 1;
+            updateCart();
+        }
+
+        // Remove Item
+        function removeItem(e) {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            cart = cart.filter(i => i.id !== itemId);
+            updateCart();
+        }
+
+        // Show Cart Notification
+        function showCartNotification(itemName) {
+            const notification = document.createElement('div');
+            notification.className = 'cart-notification';
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${itemName} added to cart!`;
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.backgroundColor = '#6F4E37';
+            notification.style.color = 'white';
+            notification.style.padding = '15px 25px';
+            notification.style.borderRadius = '5px';
+            notification.style.zIndex = '300';
+            notification.style.display = 'flex';
+            notification.style.alignItems = 'center';
+            notification.style.gap = '10px';
+            notification.style.animation = 'fadeIn 0.5s, fadeOut 0.5s 2.5s';
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Newsletter Form Submission
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            if (email) {
+                alert(`Thank you for subscribing with ${email}! You'll receive our newsletter soon.`);
+                this.reset();
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+
+        // Event Listeners
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'block';
+        });
+
+        closeModal.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+
+        // Add event listeners to special items "Add to Cart" buttons
+        document.querySelectorAll('.special-card .add-to-cart').forEach(button => {
+            button.addEventListener('click', addToCart);
+        });
+
+        // Initialize
+        displayMenu();
+        updateCart();
+
+        // Add CSS for notification animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(20px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
